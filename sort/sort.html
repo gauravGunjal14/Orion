@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Visualize data structures and algorithms with animations and interactive tools.">
+  <meta name="keywords"
+    content="DSA, Visualizer, Algorithms, Data Structures, Interactive, Sorting, Sort, Gaurav Gunjal">
+  <title>DSA Visualizer</title>
+  <link rel="stylesheet" href="../style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="navbar">
+    <div class="logo">DSA Visualizer</div>
+    <nav>
+      <div class="nav-links">
+        <a href="#sort-page" class="links">Sort</a>
+        <a href="#visualizer" class="links">Visualizer</a>
+        <a href="#code" class="links">Code</a>
+        <a href="../index.html" class="links">Home</a>
+      </div>
+      <div class="theme">
+        <button id="toggelBtn" class="light-mode theme"><img id="themeIcon" src="../icons/light-mode.png"
+            alt="Switch into light mode"></button>
+      </div>
+
+      <div class="menuIcon" id="menuIcon">&#9776;</div>
+      <div class="closeIcon" id="closeIcon" style="display: none;">&times;</div>
+    </nav>
+  </header>
+
+  <!-- main -->
+  <main id="sort-page">
+    <!-- sort selector -->
+    <section class="sort-selector">
+      <button class="sort-btn" id="insertion">Insertion</button>
+      <button class="sort-btn" id="selection">Selection</button>
+      <button class="sort-btn" id="bubble">Bubble</button>
+      <button class="sort-btn" id="quick">Quick</button>
+      <button class="sort-btn" id="merge">Merge</button>
+      <button class="sort-btn" id="heap">Heap</button>
+    </section>
+
+    <!-- sort info. -->
+    <section class="sort-desc" id="sortDesc">
+      <h2><strong>Bubble Sort</strong></h2>
+      <p class="defination">
+        <strong>Definition:</strong>
+      <ul>
+        <li class="defination1">Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the
+          adjacent elements if they are in the wrong order. This algorithm is not suitable for large data sets as its
+          average and worst-case time complexity are quite high.</li>
+      </ul>
+      </p>
+
+      <p class="working"><strong>Working:</strong>
+      <ul class="working1">
+      </ul>
+      </p>
+      <p class="time-complexity"><strong>Time Complexity:</strong> O(n²) average and worst case</p>
+      <p class="space-complexity"><strong>Space Complexity:</strong> O(1)</p>
+    </section>
+
+    <section id="visualizer" class="visualizer">
+
+      <div class="visualizer-layout">
+
+        <div class="left-panel">
+          <div class="input-section">
+            <label for="customInput">Enter numbers:</label>
+            <input type="text" id="customInput" placeholder="45, 18, 10, 7" />
+            <button id="generateBtn">Generate Bars</button>
+          </div>
+
+          <div class="bar-wrapper">
+            <div id="barContainer" class="bars-container"></div>
+            <div id="barIndexContainer" class="bar-index-container"></div>
+          </div>
+
+          <div class="control-panel">
+            <button id="playBtn">&#9654; Play</button>
+            <button id="pauseBtn">&#x23F8; Pause</button>
+            <button id="prevBtn">&#10094; Prev</button>
+            <button id="nextBtn">&#10095; Next</button>
+            <button id="restart">&#x27F3; Restart</button>
+            <div class="speed">
+              <label for="speedRange">Speed:</label>
+              <input type="range" id="speedRange" min="100" max="2000" value="1000" />
+            </div>
+          </div>
+        </div>
+
+        <div class="right-panel">
+          <h3>Steps:</h3>
+          <div class="step-info" id="stepInfo">
+            <h3>Visited Steps:</h3>
+            <ul id="stepList"></ul>
+          </div>
+
+          <div class="code-highlight-section">
+            <h3>Code Execution Highlight:</h3>
+            <pre id="codeBox">
+<code><span id="outer-loop">for (let i = 0; i < arr.length - 1; i++) {</span>
+<span id="inner-loop">  for (let j = 0; j < arr.length - i - 1; j++) {</span>
+<span id="compare">    if (arr[j] > arr[j + 1]) {</span>
+<span id="swap">      [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];</span>
+<span>    }</span>
+<span>  }</span>
+<span>}</span></code></pre>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- display multi-language code -->
+    <section id="code" class="sort-lan-selector">
+      <button class="sort-lan-btn active" id="cpp">C++</button>
+      <button class="sort-lan-btn" id="c">C</button>
+      <button class="sort-lan-btn" id="py">Python</button>
+      <button class="sort-lan-btn" id="java">Java</button>
+      <button class="sort-lan-btn" id="js">JavaScript</button>
+    </section>
+
+    <!-- code display -->
+    <section class="code-display">
+      <button id="copy-btn"><img src="../icons/dark-copy.png" alt=""></button>
+      <!-- display code of selected language -->
+      <p class="code-lang"></p>
+    </section>
+
+  </main>
+  <script src="./sortLogic.js"></script>
+</body>
+
+</html>
