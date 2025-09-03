@@ -1,6 +1,6 @@
-# 🔍 DSA Visualizer
+# 🔍 Orion
 
-Welcome to **DSA Visualizer** — a modern web-based platform to **visualize Data Structures and Algorithms** through interactive and intuitive animations.
+Welcome to **Orion** — a modern web-based platform to **visualize Data Structures and Algorithms** through interactive and intuitive animations.
 
 Built for students, educators, and developers who want to understand core DSA concepts in a visual and engaging way.
 
@@ -11,7 +11,7 @@ Built for students, educators, and developers who want to understand core DSA co
 The goal of this project is to:
 - Make learning Data Structures and Algorithms (DSA) simple and visual.
 - Help students understand internal working of sorting, trees, graphs, and more.
-- Provide a platform similar to [VisuAlgo.net](https://visualgo.net), but modern, customizable, and open-source.
+- Provide a platform to learn through animations, but modern, customizable, and open-source.
 
 ---
 
