@@ -178,6 +178,13 @@ window.addEventListener("DOMContentLoaded", () => {
     //sort multi-language code display
     document.querySelector(".code-display p").textContent = sortCodes[activeSort][lang];
 
+    // Add this new section to handle the default array
+    const defaultArray = createRandomArray();
+    generateBars(defaultArray);
+    sort[activeSort](defaultArray);
+    currentStep = 0;
+    animateStep(currentStep);
+
     // bubble sort
     bubbleSortBtn.classList.add("active");
     sortDescName.textContent = sortName[activeSort];
@@ -186,6 +193,16 @@ window.addEventListener("DOMContentLoaded", () => {
     sortTime.innerHTML = sortTimeComplexity[activeSort];
     sortSpace.innerHTML = sortSpaceComplexity[activeSort];
 });
+
+function createRandomArray() {
+    const defaultSize = 15; // Set a default number of bars
+    const arr = [];
+    for (let i = 0; i < defaultSize; i++) {
+        // Generate random values between 10 and 200
+        arr.push(Math.floor(Math.random() * 191) + 10);
+    }
+    return arr;
+}
 
 const sortCodes = {
     bubble: {
@@ -1476,11 +1493,12 @@ function generateBars(arr) {
         bar.style.height = `${heightPercent}%`;
         bar.style.width = `30px`;
         bar.style.margin = '0 5px';
-        bar.style.backgroundColor = '#61dafb';
+        // bar.style.backgroundColor = '#61dafb';
         bar.style.display = 'flex';
         bar.style.alignItems = 'flex-end';
         bar.style.justifyContent = 'center';
         bar.textContent = num;
+        bar.classList.add('bar', 'default-bar');
         bars.push(bar);
         barContainer.appendChild(bar);
 
@@ -1954,8 +1972,8 @@ function animateStep(index) {
 
     // 1. Reset all bars before applying this step
     bars.forEach((bar, idx) => {
-        bar.classList.remove("sorted");
-        bar.style.backgroundColor = '#61dafb'; // default blue
+        bar.classList.remove("comparing", "swapping", "sorted");
+        bar.classList.add("default-bar"); // default blue
         const heightPercent = (step.arrSnapshot[idx] / maxVal) * 100;
         bar.style.height = `${heightPercent}%`;
         bar.textContent = step.arrSnapshot[idx];
@@ -1963,13 +1981,17 @@ function animateStep(index) {
 
     // 2. Highlight current comparison
     if (step.indices && step.indices.length === 2) {
-        bars[i].style.backgroundColor = '#f39c12'; // comparing
-        bars[j].style.backgroundColor = '#e74c3c'; // swapping
+        bars[i].classList.remove("default-bar");
+    bars[i].classList.add("comparing");
+
+    bars[j].classList.remove("default-bar");
+    bars[j].classList.add("swapping");
     }
 
     // 3. Apply sorted class for this step
     if (step.sortedIndices && step.sortedIndices.length) {
         step.sortedIndices.forEach(idx => {
+            bars[idx].classList.remove("default-bar");
             bars[idx].classList.add("sorted");
         });
     }

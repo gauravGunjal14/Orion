@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visualize data structures and algorithms with animations and interactive tools.">
+    <meta name="keywords"
+        content="DSA, Visualizer, Algorithms, Data Structures, Interactive, Array, Array Operations, Gaurav Gunjal">
+    <title>Array Visualizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo"><a href="../index.html" class="links">ORION</a></div>
+        <nav>
+            <div class="nav-links">
+                <a href="../index.html" class="links">Home</a>
+                <a href="#sortDesc" class="links">Array</a>
+                <a href="#visualizer" class="links">Visualizer</a>
+                <a href="#code" class="links">Code</a>
+            </div>
+            <div class="theme">
+                <button id="toggelBtn" class="light-mode theme"><img id="themeIcon" src="../icons/light-mode.png"
+                        alt="Switch into light mode"></button>
+            </div>
+
+            <div class="menuIcon" id="menuIcon">&#9776;</div>
+            <div class="closeIcon" id="closeIcon" style="display: none;">&times;</div>
+        </nav>
+    </header>
+
+    <section class="sort-desc" id="sortDesc">
+  <h2><strong>Array</strong></h2>
+
+  <!-- Definition -->
+  <p class="definition">
+    <strong>Definition:</strong>
+    <ul>
+      <li class="definition1">Array is a linear data structure where elements are stored at contiguous memory locations.</li>
+      <li class="definition1">It allows storing multiple elements of the same data type using a single variable name.</li>
+      <li class="definition1">Each element can be accessed directly using its index (starting from 0).</li>
+    </ul>
+  </p>
+
+  <!-- Working -->
+  <p class="working">
+    <strong>Working:</strong>
+    <ul class="working1">
+      <li>Array stores data in a continuous memory block.</li>
+      <li>Each element is accessed using an index: <code>arr[index]</code>.</li>
+      <li>Insertion/Deletion at the end is easy, but at the beginning/middle requires shifting elements.</li>
+      <li>Efficient for random access, but costly for frequent insertions/deletions.</li>
+    </ul>
+  </p>
+
+  <!-- Time Complexity -->
+  <p class="time-complexity">
+    <strong>Time Complexity:</strong>
+    <ul class="time-complexity1">
+      <li>Access (Read): <code>O(1)</code></li>
+      <li>Search: <code>O(n)</code></li>
+      <li>Insertion: <code>O(n)</code> (worst case, when inserting at beginning)</li>
+      <li>Deletion: <code>O(n)</code> (worst case, when deleting from beginning)</li>
+    </ul>
+  </p>
+
+  <!-- Space Complexity -->
+  <p class="space-complexity">
+    <strong>Space Complexity:</strong>
+    <ul class="space-complexity1">
+      <li><code>O(n)</code> (to store <em>n</em> elements)</li>
+    </ul>
+  </p>
+</section>
+
+
+    <main id="array-page">
+        <section id="visualizer" class="visualizer">
+            <div class="visualizer-layout">
+                <div class="left-panel">
+                    <div class="input-section">
+                        <label for="customInput">Enter initial array (comma-separated):</label>
+                        <input type="text" id="customInput" placeholder="45, 18, 10" />
+                        <button id="generateBtn">Generate Array</button>
+                        <button id="resetBtn">Reset</button>
+                    </div>
+
+                    <div class="bar-wrapper">
+                        <div id="barIndexContainer" class="bar-index-container"></div>
+                        <div id="barContainer" class="bars-container"></div>
+                    </div>
+
+                    <div class="array-operations">
+                        <input type="text" id="valueInput" placeholder="Value">
+                        <input type="text" id="indexInput" placeholder="Index">
+                        <button id="insertBtn">Insertion</button>
+                        <button id="deleteBtn">Deletion</button>
+                        <button id="searchBtn">Searching</button>
+                        <button id="sortBtn">Sorting</button>
+                    </div>
+
+                </div>
+
+                <div class="right-panel">
+                    <div class="step-info" id="stepInfo">
+                        <h3>Visited Steps:</h3>
+                        <ul id="stepList"></ul>
+                    </div>
+
+                    <div class="code-highlight-section">
+                        <h3>Code Snippet:</h3>
+                        <pre id="codeBox">
+<code id="codeSnippet"></code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <section id="code" class="sort-lan-selector">
+      <button class="sort-lan-btn active" id="cpp">C++</button>
+      <button class="sort-lan-btn" id="c">C</button>
+      <button class="sort-lan-btn" id="py">Python</button>
+      <button class="sort-lan-btn" id="java">Java</button>
+      <button class="sort-lan-btn" id="js">JavaScript</button>
+    </section>
+
+    <!-- code display -->
+    <section class="code-display">
+      <button id="copy-btn"><img src="../icons/dark-copy.png" alt=""></button>
+      <!-- display code of selected language -->
+      <p class="code-lang"></p>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Orion. All rights reserved.</p>
+        </div>
+    </footer>
+    </main>
+
+    <script src="./arrayLogic.js"></script>
+</body>
+
+</html>
