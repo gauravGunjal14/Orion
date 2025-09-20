@@ -175,8 +175,7 @@ let lang = "cpp";
 
 // bydefault displayed when reloaded page
 window.addEventListener("DOMContentLoaded", () => {
-    //sort multi-language code display
-    document.querySelector(".code-display p").textContent = sortCodes[activeSort][lang];
+    // Other existing code...
 
     // Add this new section to handle the default array
     const defaultArray = createRandomArray();
@@ -184,6 +183,9 @@ window.addEventListener("DOMContentLoaded", () => {
     sort[activeSort](defaultArray);
     currentStep = 0;
     animateStep(currentStep);
+
+    //sort multi-language code display
+    document.querySelector(".code-display p").textContent = sortCodes[activeSort][lang];
 
     // bubble sort
     bubbleSortBtn.classList.add("active");
@@ -1139,295 +1141,6 @@ console.log(arr.join(" "));`
     }
 };
 
-// const bubbleSortCodes = {
-//     cpp: `#include <bits/stdc++.h>
-// using namespace std;
-
-// // An optimized version of Bubble Sort 
-// void bubbleSort(vector<int>& arr) {
-//     int n = arr.size();
-//     bool swapped;
-
-//     for (int i = 0; i < n - 1; i++) {
-//         swapped = false;
-//         for (int j = 0; j < n - i - 1; j++) {
-//             if (arr[j] > arr[j + 1]) {
-//                 swap(arr[j], arr[j + 1]);
-//                 swapped = true;
-//             }
-//         }
-//         if (!swapped)
-//             break;
-//     }
-// }
-
-// void printVector(const vector<int>& arr) {
-//     for (int num : arr)
-//         cout << " " << num;
-// }
-
-// int main() {
-//     vector<int> arr = {64, 34, 25, 12, 22, 11, 90};
-//     bubbleSort(arr);
-//     cout << "Sorted array: \\n";
-//     printVector(arr);
-//     return 0;
-// }`,
-
-//     c: `#include <stdbool.h>
-// #include <stdio.h>
-
-// void swap(int* xp, int* yp){
-//     int temp = *xp;
-//     *xp = *yp;
-//     *yp = temp;
-// }
-
-// void bubbleSort(int arr[], int n){
-//     int i, j;
-//     bool swapped;
-//     for (i = 0; i < n - 1; i++) {
-//         swapped = false;
-//         for (j = 0; j < n - i - 1; j++) {
-//             if (arr[j] > arr[j + 1]) {
-//                 swap(&arr[j], &arr[j + 1]);
-//                 swapped = true;
-//             }
-//         }
-//         if (!swapped)
-//             break;
-//     }
-// }
-
-// void printArray(int arr[], int size){
-//     for (int i = 0; i < size; i++)
-//         printf("%d ", arr[i]);
-// }
-
-// int main(){
-//     int arr[] = {64, 34, 25, 12, 22, 11, 90};
-//     int n = sizeof(arr) / sizeof(arr[0]);
-//     bubbleSort(arr, n);
-//     printf("Sorted array: \\n");
-//     printArray(arr, n);
-//     return 0;
-// }`,
-
-//     py: `# Optimized implementation of Bubble Sort in Python
-// def bubble_sort(arr):
-//     n = len(arr)
-//     for i in range(n):
-//         swapped = False
-//         for j in range(0, n - i - 1):
-//             if arr[j] > arr[j + 1]:
-//                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
-//                 swapped = True
-//         if not swapped:
-//             break
-
-// def print_array(arr):
-//     for i in arr:
-//         print(i, end=" ")
-
-// arr = [64, 34, 25, 12, 22, 11, 90]
-// bubble_sort(arr)
-// print("Sorted array:")
-// print_array(arr)`,
-
-//     java: `// Optimized Bubble Sort in Java
-// class GFG {
-//     static void bubbleSort(int arr[], int n){
-//         int i, j, temp;
-//         boolean swapped;
-//         for (i = 0; i < n - 1; i++) {
-//             swapped = false;
-//             for (j = 0; j < n - i - 1; j++) {
-//                 if (arr[j] > arr[j + 1]) {
-//                     temp = arr[j];
-//                     arr[j] = arr[j + 1];
-//                     arr[j + 1] = temp;
-//                     swapped = true;
-//                 }
-//             }
-//             if (!swapped)
-//                 break;
-//         }
-//     }
-
-//     static void printArray(int arr[], int size){
-//         for (int i = 0; i < size; i++)
-//             System.out.print(arr[i] + " ");
-//         System.out.println();
-//     }
-
-//     public static void main(String args[]){
-//         int arr[] = {64, 34, 25, 12, 22, 11, 90};
-//         int n = arr.length;
-//         bubbleSort(arr, n);
-//         System.out.println("Sorted array:");
-//         printArray(arr, n);
-//     }
-// }`,
-
-//     js: `// Optimized Bubble Sort in JavaScript
-// function bubbleSort(arr) {
-//     let n = arr.length;
-//     for (let i = 0; i < n; i++) {
-//         let swapped = false;
-//         for (let j = 0; j < n - i - 1; j++) {
-//             if (arr[j] > arr[j + 1]) {
-//                 [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-//                 swapped = true;
-//             }
-//         }
-//         if (!swapped) break;
-//     }
-// }
-
-// function printArray(arr) {
-//     console.log(arr.join(" "));
-// }
-
-// let arr = [64, 34, 25, 12, 22, 11, 90];
-// bubbleSort(arr);
-// console.log("Sorted array:");
-// printArray(arr);`
-// };
-
-// const insertionSortCodes = {
-//     cpp: `#include <bits/stdc++.h>
-// using namespace std;
-
-// // Function to perform Insertion Sort
-// void insertionSort(vector<int>& arr) {
-//     int n = arr.size();
-//     for (int i = 1; i < n; i++) {
-//         int key = arr[i];
-//         int j = i - 1;
-//         while (j >= 0 && arr[j] > key) {
-//             arr[j + 1] = arr[j];
-//             j--;
-//         }
-//         arr[j + 1] = key;
-//     }
-// }
-
-// void printVector(const vector<int>& arr) {
-//     for (int num : arr)
-//         cout << num << " ";
-//     cout << endl;
-// }
-
-// int main() {
-//     vector<int> arr = {64, 34, 25, 12, 22, 11, 90};
-//     insertionSort(arr);
-//     cout << "Sorted array:\\n";
-//     printVector(arr);
-//     return 0;
-// }`,
-
-//     c: `#include <stdio.h>
-
-// // Function to perform Insertion Sort
-// void insertionSort(int arr[], int n) {
-//     for (int i = 1; i < n; i++) {
-//         int key = arr[i];
-//         int j = i - 1;
-//         while (j >= 0 && arr[j] > key) {
-//             arr[j + 1] = arr[j];
-//             j--;
-//         }
-//         arr[j + 1] = key;
-//     }
-// }
-
-// void printArray(int arr[], int size) {
-//     for (int i = 0; i < size; i++)
-//         printf("%d ", arr[i]);
-//     printf("\\n");
-// }
-
-// int main() {
-//     int arr[] = {64, 34, 25, 12, 22, 11, 90};
-//     int n = sizeof(arr) / sizeof(arr[0]);
-//     insertionSort(arr, n);
-//     printf("Sorted array:\\n");
-//     printArray(arr, n);
-//     return 0;
-// }`,
-
-//     py: `# Insertion Sort in Python
-// def insertion_sort(arr):
-//     for i in range(1, len(arr)):
-//         key = arr[i]
-//         j = i - 1
-//         while j >= 0 and arr[j] > key:
-//             arr[j + 1] = arr[j]
-//             j -= 1
-//         arr[j + 1] = key
-
-// def print_array(arr):
-//     for i in arr:
-//         print(i, end=" ")
-//     print()
-
-// arr = [64, 34, 25, 12, 22, 11, 90]
-// insertion_sort(arr)
-// print("Sorted array:")
-// print_array(arr)`,
-
-//     java: `// Insertion Sort in Java
-// class GFG {
-//     static void insertionSort(int arr[]) {
-//         int n = arr.length;
-//         for (int i = 1; i < n; i++) {
-//             int key = arr[i];
-//             int j = i - 1;
-//             while (j >= 0 && arr[j] > key) {
-//                 arr[j + 1] = arr[j];
-//                 j = j - 1;
-//             }
-//             arr[j + 1] = key;
-//         }
-//     }
-
-//     static void printArray(int arr[]) {
-//         for (int num : arr)
-//             System.out.print(num + " ");
-//         System.out.println();
-//     }
-
-//     public static void main(String args[]) {
-//         int arr[] = {64, 34, 25, 12, 22, 11, 90};
-//         insertionSort(arr);
-//         System.out.println("Sorted array:");
-//         printArray(arr);
-//     }
-// }`,
-
-//     js: `// Insertion Sort in JavaScript
-// function insertionSort(arr) {
-//     for (let i = 1; i < arr.length; i++) {
-//         let key = arr[i];
-//         let j = i - 1;
-//         while (j >= 0 && arr[j] > key) {
-//             arr[j + 1] = arr[j];
-//             j--;
-//         }
-//         arr[j + 1] = key;
-//     }
-// }
-
-// function printArray(arr) {
-//     console.log(arr.join(" "));
-// }
-
-// let arr = [64, 34, 25, 12, 22, 11, 90];
-// insertionSort(arr);
-// console.log("Sorted array:");
-// printArray(arr);`
-// };
-
 const sortLanButtons = document.querySelectorAll(".sort-lan-selector button");
 const codeDisplay = document.querySelector(".code-display p");
 
@@ -1451,10 +1164,12 @@ document.getElementById("copy-btn").addEventListener("click", () => {
     const code = document.querySelector(".code-display p").textContent;
     navigator.clipboard.writeText(code)
         .then(() => {
-            alert("Code copied to clipboard!");
+            // alert("Code copied to clipboard!");
+            showNotification(messages[0].text, messages[0].type);
         })
         .catch(err => {
-            alert("Failed to copy code. Please try again.");
+            // alert("Failed to copy code. Please try again.");
+            showNotification(messages[1].text, messages[1].type);
         });
 });
 
@@ -2145,4 +1860,35 @@ restartBtn.addEventListener('click', () => {
 function getActualSpeed() {
     const sliderValue = parseInt(speedSlider.value);
     return 2100 - sliderValue; // 100 => 2000ms, 2000 => 100ms
+}
+
+function waveCelebrate(bars) {
+  bars.forEach((bar, i) => {
+    setTimeout(() => {
+      bar.classList.add("sorted");
+    }, i * 150); // 150ms delay har bar ke liye
+  });
+}
+
+const container = document.getElementById("notification-container");
+const copy_btn = document.getElementById("copy-btn");
+
+const messages = [{ text: "Copied succesfully!", type: "success" },
+    { text: "Something went wrong!", type: "error" }
+];
+
+function showNotification(message, type = "info") {
+  const notif = document.createElement("div");
+  notif.classList.add("notification", type);
+  notif.innerHTML = `
+    <span>${message}</span>
+    <button onclick="this.parentElement.remove()" class="notification-close">×</button>
+  `;
+
+  container.appendChild(notif);
+
+  // Auto remove after 4s
+  setTimeout(() => {
+    notif.remove();
+  }, 4000);
 }
