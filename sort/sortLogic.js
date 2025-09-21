@@ -1263,51 +1263,65 @@ const sort = {
 function recordBubbleSortSteps(arr) {
     steps = []; // clear previous steps
     let temp = [...arr];
+    let n = temp.length;
 
-    for (let i = 0; i < temp.length - 1; i++) {
-        for (let j = 0; j < temp.length - i - 1; j++) {
-            const swapped = temp[j] > temp[j + 1];
+    for (let i = 0; i < n - 1; i++) {
+        let swappedInPass = false;
+        for (let j = 0; j < n - i - 1; j++) {
+            const needsSwap = temp[j] > temp[j + 1];
 
-            // Record comparison step
+            // Record comparison step first
             steps.push({
                 indices: [j, j + 1],
                 arrSnapshot: [...temp],
-                swapped: swapped,
-                codeLine: swapped ? "swap" : "compare",
-                sortedIndices: [],
-                action: swapped ? "swap" : "compare"
+                preSnapshot: [...temp],
+                action: "compare",
+                codeLine: "compare",
             });
 
-            if (swapped) {
+            if (needsSwap) {
+                swappedInPass = true;
+                const preSwapState = [...temp];
                 [temp[j], temp[j + 1]] = [temp[j + 1], temp[j]];
+
+                // Record swap step
+                steps.push({
+                    indices: [j, j + 1],
+                    arrSnapshot: [...temp], // This is now the post-swap state
+                    preSnapshot: preSwapState, // Explicitly show pre-swap state
+                    action: "swap",
+                    codeLine: "swap",
+                });
             }
         }
 
-        // After each outer loop, last i elements are sorted
-        let sortedPart = [];
-        for (let k = temp.length - i; k < temp.length; k++) {
-            sortedPart.push(k);
-        }
-
-        // Push step to mark these bars sorted
+        // After each outer loop pass, the element at `n - 1 - i` is in its final sorted position.
+        // ✨ CHANGE HERE: Changed "sorted" to "element-sorted" for individual element placement.
         steps.push({
             indices: [],
             arrSnapshot: [...temp],
-            swapped: false,
-            codeLine: null,
-            sortedIndices: sortedPart,
-            action: "sorted"
+            postSnapshot: [...temp],
+            sortedIndices: [n - 1 - i], // Mark the newly sorted element
+            action: "element-sorted",
+            codeLine: "sorted",
         });
+
+        // Optimization: If no swaps in a pass, the array is already sorted.
+        if (!swappedInPass) {
+            break;
+        }
     }
 
-    // Final pass: mark all sorted
+    // After all loops, the first element is also sorted by default.
+    // And now we do the final "all sorted" message.
+    // ✨ CHANGE HERE: Changed "sorted" to "sorted-final" for the completion message.
     steps.push({
         indices: [],
         arrSnapshot: [...temp],
-        swapped: false,
-        codeLine: null,
-        sortedIndices: [...Array(temp.length).keys()],
-        action: "sorted"
+        postSnapshot: [...temp],
+        sortedIndices: [...Array(temp.length).keys()], // Mark all elements
+        action: "sorted-final",
+        codeLine: "return",
     });
 }
 
@@ -1315,43 +1329,56 @@ function recordInsertionSortSteps(arr) {
     steps = [];
     let temp = [...arr];
 
+    // The first element is trivially sorted.
+    // We can add a starting step if desired, but for now we follow the algo logic.
+
     for (let i = 1; i < temp.length; i++) {
         let key = temp[i];
         let j = i - 1;
+        let preSnapshot = [...temp];
+
+        // Compare key with elements in the sorted part
+        steps.push({
+            indices: [i, j],
+            arrSnapshot: [...temp],
+            preSnapshot: [...temp],
+            action: "compare",
+            codeLine: "while",
+        });
 
         while (j >= 0 && temp[j] > key) {
-            steps.push({
-                indices: [j, j + 1],
-                arrSnapshot: [...temp],
-                swapped: true,
-                codeLine: "shift",
-                sortedIndices: [],
-                action: "shift"
-            });
+            const preShift = [...temp];
             temp[j + 1] = temp[j];
+            steps.push({
+                indices: [j + 1],
+                arrSnapshot: [...temp],
+                preSnapshot: preShift,
+                action: "shift",
+                codeLine: "shift",
+            });
             j--;
         }
-
+        const preInsert = [...temp];
         temp[j + 1] = key;
 
         steps.push({
             indices: [j + 1],
             arrSnapshot: [...temp],
-            swapped: false,
+            preSnapshot: preInsert,
+            action: "insert",
             codeLine: "insert",
-            sortedIndices: [],
-            action: "insert"
         });
     }
 
-    // Final sorted state
+    // ✨ CHANGE HERE: Changed final action to "sorted-final".
+    // For Insertion sort, we only know for sure that everything is in its final place at the very end.
     steps.push({
         indices: [],
         arrSnapshot: [...temp],
-        swapped: false,
-        codeLine: null,
+        postSnapshot: [...temp],
         sortedIndices: [...Array(temp.length).keys()],
-        action: "sorted"
+        action: "sorted-final",
+        codeLine: "return",
     });
 }
 
@@ -1367,10 +1394,9 @@ function recordSelectionSortSteps(arr) {
             steps.push({
                 indices: [minIndex, j],
                 arrSnapshot: [...temp],
-                swapped: false,
+                preSnapshot: [...temp],
+                action: "compare",
                 codeLine: "compare",
-                sortedIndices: [],
-                action: "compare"
             });
 
             if (temp[j] < temp[minIndex]) {
@@ -1379,36 +1405,36 @@ function recordSelectionSortSteps(arr) {
         }
 
         if (minIndex !== i) {
+            const preSwapState = [...temp];
             [temp[i], temp[minIndex]] = [temp[minIndex], temp[i]];
             steps.push({
                 indices: [i, minIndex],
                 arrSnapshot: [...temp],
-                swapped: true,
+                preSnapshot: preSwapState,
+                action: "swap",
                 codeLine: "swap",
-                sortedIndices: [],
-                action: "swap"
             });
         }
 
-        // Mark sorted element
+        // ✨ CHANGE HERE: Mark the element at index `i` as sorted, as it's now in its final place.
         steps.push({
-            indices: [i],
+            indices: [],
             arrSnapshot: [...temp],
-            swapped: false,
-            codeLine: null,
-            sortedIndices: [i],
-            action: "sorted"
+            postSnapshot: [...temp],
+            sortedIndices: [i], // The element at `i` is now sorted
+            action: "element-sorted",
+            codeLine: "sorted",
         });
     }
 
-    // Final state: all sorted
+    // ✨ CHANGE HERE: The final message for when the entire array is sorted.
     steps.push({
         indices: [],
         arrSnapshot: [...temp],
-        swapped: false,
-        codeLine: null,
+        postSnapshot: [...temp],
         sortedIndices: [...Array(temp.length).keys()],
-        action: "sorted"
+        action: "sorted-final",
+        codeLine: "return",
     });
 }
 
@@ -1423,44 +1449,44 @@ function recordQuickSortSteps(arr) {
         steps.push({
             indices: [high],
             arrSnapshot: [...temp],
-            swapped: false,
+            preSnapshot: [...temp],
+            action: "partition",
             codeLine: "pivot",
-            sortedIndices: [],
-            action: "partition"
         });
 
         for (let j = low; j < high; j++) {
             steps.push({
                 indices: [j, high],
                 arrSnapshot: [...temp],
-                swapped: false,
+                preSnapshot: [...temp],
+                action: "compare",
                 codeLine: "compare",
-                sortedIndices: [],
-                action: "compare"
             });
 
             if (temp[j] < pivot) {
                 i++;
-                [temp[i], temp[j]] = [temp[j], temp[i]];
-                steps.push({
-                    indices: [i, j],
-                    arrSnapshot: [...temp],
-                    swapped: true,
-                    codeLine: "swap",
-                    sortedIndices: [],
-                    action: "swap"
-                });
+                if (i !== j) {
+                    const preSwapState = [...temp];
+                    [temp[i], temp[j]] = [temp[j], temp[i]];
+                    steps.push({
+                        indices: [i, j],
+                        arrSnapshot: [...temp],
+                        preSnapshot: preSwapState,
+                        action: "swap",
+                        codeLine: "swap",
+                    });
+                }
             }
         }
-
+        
+        const preSwapState = [...temp];
         [temp[i + 1], temp[high]] = [temp[high], temp[i + 1]];
         steps.push({
             indices: [i + 1, high],
             arrSnapshot: [...temp],
-            swapped: true,
+            preSnapshot: preSwapState,
+            action: "swap",
             codeLine: "swap",
-            sortedIndices: [],
-            action: "swap"
         });
 
         return i + 1;
@@ -1470,20 +1496,41 @@ function recordQuickSortSteps(arr) {
         if (low < high) {
             let pi = partition(low, high);
 
+            // ✨ CHANGE HERE: After partitioning, the pivot element `pi` is in its final sorted place.
+            steps.push({
+                indices: [],
+                arrSnapshot: [...temp],
+                postSnapshot: [...temp],
+                sortedIndices: [pi],
+                action: "element-sorted",
+                codeLine: "sorted",
+            });
+
             quickSort(low, pi - 1);
             quickSort(pi + 1, high);
+        } else if (low === high) {
+            // Also mark single elements as sorted when the subarray has size 1
+            steps.push({
+                indices: [],
+                arrSnapshot: [...temp],
+                postSnapshot: [...temp],
+                sortedIndices: [low],
+                action: "element-sorted",
+                codeLine: "sorted",
+            });
         }
     }
 
     quickSort(0, temp.length - 1);
 
+    // ✨ CHANGE HERE: The final message for when the entire array is sorted.
     steps.push({
         indices: [],
         arrSnapshot: [...temp],
-        swapped: false,
-        codeLine: null,
+        postSnapshot: [...temp],
         sortedIndices: [...Array(temp.length).keys()],
-        action: "sorted"
+        action: "sorted-final",
+        codeLine: "return",
     });
 }
 
@@ -1497,17 +1544,18 @@ function recordMergeSortSteps(arr) {
 
         let L = temp.slice(left, mid + 1);
         let R = temp.slice(mid + 1, right + 1);
+        
+        let preMergeState = [...temp];
 
         let i = 0, j = 0, k = left;
 
         while (i < n1 && j < n2) {
             steps.push({
                 indices: [left + i, mid + 1 + j],
-                arrSnapshot: [...temp],
-                swapped: false,
+                arrSnapshot: [...preMergeState],
+                preSnapshot: [...preMergeState],
+                action: "compare",
                 codeLine: "compare",
-                sortedIndices: [],
-                action: "compare"
             });
 
             if (L[i] <= R[j]) {
@@ -1517,45 +1565,29 @@ function recordMergeSortSteps(arr) {
                 temp[k] = R[j];
                 j++;
             }
-
-            steps.push({
-                indices: [k],
-                arrSnapshot: [...temp],
-                swapped: false,
-                codeLine: "merge",
-                sortedIndices: [],
-                action: "merge"
-            });
             k++;
         }
 
         while (i < n1) {
             temp[k] = L[i];
-            steps.push({
-                indices: [k],
-                arrSnapshot: [...temp],
-                swapped: false,
-                codeLine: "merge",
-                sortedIndices: [],
-                action: "merge"
-            });
             i++;
             k++;
         }
 
         while (j < n2) {
             temp[k] = R[j];
-            steps.push({
-                indices: [k],
-                arrSnapshot: [...temp],
-                swapped: false,
-                codeLine: "merge",
-                sortedIndices: [],
-                action: "merge"
-            });
             j++;
             k++;
         }
+
+        // Record the state after a merge operation is complete
+        steps.push({
+            indices: [left, right],
+            arrSnapshot: [...temp],
+            preSnapshot: preMergeState,
+            action: "merge",
+            codeLine: "merge",
+        });
     }
 
     function mergeSort(left, right) {
@@ -1569,13 +1601,16 @@ function recordMergeSortSteps(arr) {
 
     mergeSort(0, temp.length - 1);
 
+    // ✨ CHANGE HERE: Final message for when the entire array is sorted.
+    // Merge sort doesn't place elements into their final positions until the end,
+    // so we only use the final sorted message.
     steps.push({
         indices: [],
         arrSnapshot: [...temp],
-        swapped: false,
-        codeLine: null,
+        postSnapshot: [...temp],
         sortedIndices: [...Array(temp.length).keys()],
-        action: "sorted"
+        action: "sorted-final",
+        codeLine: "return",
     });
 }
 
@@ -1584,54 +1619,48 @@ function recordHeapSortSteps(arr) {
     let temp = [...arr];
     let n = temp.length;
 
-    function heapify(n, i) {
+    function heapify(size, i) {
         let largest = i;
-        let l = 2 * i + 1;
-        let r = 2 * i + 2;
+        let left = 2 * i + 1;
+        let right = 2 * i + 2;
 
-        // Left child
-        if (l < n) {
+        if (left < size) {
             steps.push({
-                indices: [i, l],
+                indices: [largest, left],
                 arrSnapshot: [...temp],
-                swapped: false,
-                codeLine: "compare",
-                sortedIndices: [],
-                action: "compare"
+                preSnapshot: [...temp],
+                action: "compare",
+                codeLine: "compare"
             });
-            if (temp[l] > temp[largest]) {
-                largest = l;
+            if (temp[left] > temp[largest]) {
+                largest = left;
             }
         }
 
-        // Right child
-        if (r < n) {
+        if (right < size) {
             steps.push({
-                indices: [i, r],
+                indices: [largest, right],
                 arrSnapshot: [...temp],
-                swapped: false,
-                codeLine: "compare",
-                sortedIndices: [],
-                action: "compare"
+                preSnapshot: [...temp],
+                action: "compare",
+                codeLine: "compare"
             });
-            if (temp[r] > temp[largest]) {
-                largest = r;
+            if (temp[right] > temp[largest]) {
+                largest = right;
             }
         }
 
-        // Swap if needed
         if (largest !== i) {
+            const preSwapState = [...temp];
             [temp[i], temp[largest]] = [temp[largest], temp[i]];
             steps.push({
                 indices: [i, largest],
                 arrSnapshot: [...temp],
-                swapped: true,
-                codeLine: "swap",
-                sortedIndices: [],
-                action: "swap"
+                preSnapshot: preSwapState,
+                action: "swap",
+                codeLine: "swap"
             });
-
-            heapify(n, largest);
+            heapify(size, largest);
         }
     }
 
@@ -1642,39 +1671,37 @@ function recordHeapSortSteps(arr) {
 
     // Extract elements from heap one by one
     for (let i = n - 1; i > 0; i--) {
-        // Swap root with last
+        const preSwapState = [...temp];
         [temp[0], temp[i]] = [temp[i], temp[0]];
         steps.push({
             indices: [0, i],
             arrSnapshot: [...temp],
-            swapped: true,
-            codeLine: "swap",
-            sortedIndices: [i], // mark extracted as sorted
-            action: "swap"
+            preSnapshot: preSwapState,
+            action: "swap",
+            codeLine: "swap"
         });
 
-        // Heapify reduced heap
-        heapify(i, 0);
-
-        // Mark current last index as sorted
+        // ✨ CHANGE HERE: Mark the extracted element as sorted.
         steps.push({
             indices: [],
             arrSnapshot: [...temp],
-            swapped: false,
-            codeLine: null,
+            postSnapshot: [...temp],
             sortedIndices: [i],
-            action: "sorted"
+            action: "element-sorted",
+            codeLine: "sorted"
         });
+
+        heapify(i, 0);
     }
 
-    // Final sorted state
+    // ✨ CHANGE HERE: Final message for when the entire array is sorted.
     steps.push({
         indices: [],
         arrSnapshot: [...temp],
-        swapped: false,
-        codeLine: null,
+        postSnapshot: [...temp],
         sortedIndices: [...Array(temp.length).keys()],
-        action: "sorted"
+        action: "sorted-final",
+        codeLine: "return",
     });
 }
 
@@ -1714,53 +1741,157 @@ function animateStep(index) {
     updateStepList();
 }
 
-function updateStepList() {
+let permanentlySorted = new Set(); // track final sorted indices
+
+function updateStepList(currentAlgo) {
     const stepList = document.getElementById('stepList');
     stepList.innerHTML = '';
+
+    // 🔹 Reset greens before reapplying (for Previous Step handling)
+    document.querySelectorAll('.bar').forEach(bar => bar.classList.remove('sorted-permanent'));
+    permanentlySorted.clear();
 
     for (let i = 0; i <= currentStep - 1; i++) {
         const step = steps[i];
         const li = document.createElement('li');
-        let description = '';
+
+        // ✅ Fallback for snapshots
+        const pre = step.preSnapshot ? `[${step.preSnapshot.join(", ")}]` : `[${step.arrSnapshot.join(", ")}]`;
+        const post = step.postSnapshot ? `[${step.postSnapshot.join(", ")}]` : `[${step.arrSnapshot.join(", ")}]`;
+
+        let description = "";
 
         switch (step.action) {
             case "compare": {
                 const [a, b] = step.indices;
                 const arr = step.arrSnapshot;
-                description = `Compared index ${a} (${arr[a]}) and ${b} (${arr[b]}) → ${arr[a]} ≤ ${arr[b]}`;
+                const condition = arr[a] <= arr[b];
+                description = `
+                    <div class="step-block">
+                        <strong>Comparison:</strong><b>${arr[a]}</b> (index ${a}) with <b>${arr[b]}</b> (index ${b}). <br>
+                        <em>Why:</em> Because ${arr[a]} ${condition ? "≤" : ">"} ${arr[b]}, 
+                        ${condition ? "they are already in correct order." : "a swap is required."} <br>
+                        <em>Effect:</em> ${condition ? "No change in array." : "Next step will perform a swap."} <br>
+                        <em>Before:</em> ${pre} <br>
+                        <em>After:</em> ${post}
+                    </div>`;
                 break;
             }
+
             case "swap": {
                 const [a, b] = step.indices;
                 const arr = step.arrSnapshot;
-                description = `Swapped index ${a} (${arr[a]}) and ${b} (${arr[b]})`;
+                description = `
+                    <div class="step-block">
+                        <strong>Swap:</strong> Swapping <b>${arr[a]}</b> (index ${a}) with <b>${arr[b]}</b> (index ${b}). <br>
+                        <em>Why:</em> The elements were in the wrong order. <br>
+                        <em>Effect:</em> Moves elements closer to their sorted positions. <br>
+                        <em>Before:</em> ${pre} <br>
+                        <em>After:</em> ${post}
+                    </div>`;
                 break;
             }
+
+            // --- Other cases like "shift", "insert", "partition", "merge" remain the same ---
+            
             case "shift": {
-                description = `Shifted element at index ${step.indices[0]}`;
+                const idx = step.indices[0];
+                description = `
+                    <div class="step-block">
+                        <strong>Shift:</strong> Shifting element <b>${step.arrSnapshot[idx]}</b> (index ${idx}) one place. <br>
+                        <em>Why:</em> Making space for correct insertion. <br>
+                        <em>Effect:</em> Array elements move right. <br>
+                        <em>Before:</em> ${pre} <br>
+                        <em>After:</em> ${post}
+                    </div>`;
                 break;
             }
+
             case "insert": {
-                description = `Inserted element at index ${step.indices[0]}`;
+                const idx = step.indices[0];
+                description = `
+                    <div class="step-block">
+                        <strong>Insert:</strong> Inserting element <b>${step.arrSnapshot[idx]}</b> at index ${idx}. <br>
+                        <em>Why:</em> This is its correct position in sorted portion. <br>
+                        <em>Effect:</em> Array left side remains sorted. <br>
+                        <em>Before:</em> ${pre} <br>
+                        <em>After:</em> ${post}
+                    </div>`;
                 break;
             }
+
             case "partition": {
-                description = `Partitioning with pivot at index ${step.indices[0]}`;
+                const pivotIdx = step.indices[0];
+                const pivotVal = step.arrSnapshot[pivotIdx];
+                description = `
+                    <div class="step-block">
+                        <strong>Partition:</strong> Using pivot <b>${pivotVal}</b> (index ${pivotIdx}). <br>
+                        <em>Why:</em> To divide array: elements smaller than pivot move left, larger move right. <br>
+                        <em>Before:</em> ${pre} <br>
+                        <em>After:</em> ${post}
+                    </div>`;
                 break;
             }
+
             case "merge": {
-                description = `Merging subarrays ${step.indices.join(", ")}`;
+                description = `
+                    <div class="step-block">
+                        <strong>Merge:</strong> Combining subarrays [${step.indices.join(", ")}]. <br>
+                        <em>Why:</em> Merge Sort merges two sorted halves into one. <br>
+                        <em>Effect:</em> Final subarray becomes sorted. <br>
+                        <em>Before:</em> ${pre} <br>
+                        <em>After:</em> ${post}
+                    </div>`;
                 break;
             }
-            case "sorted": {
-                description = `Marking sorted indices [${step.sortedIndices.join(", ")}]`;
+
+            // ✅ RENAMED from "sorted" to "element-sorted"
+            case "element-sorted": {
+                // This logic is for when an element reaches its final position
+                step.sortedIndices.forEach(idx => {
+                    permanentlySorted.add(idx);
+                    const bar = document.querySelector(`.bar[data-index='${idx}']`);
+                    if (bar) bar.classList.add('sorted-permanent');
+                });
+
+                const elementValues = step.sortedIndices.map(idx => step.arrSnapshot[idx]);
+
+                description = `
+                    <div class="step-block">
+                        <strong>Element Placed:</strong> Element${step.sortedIndices.length > 1 ? 's' : ''} <b>${elementValues.join(", ")}</b> at index${step.sortedIndices.length > 1 ? 'es' : ''} [${step.sortedIndices.join(", ")}] ${step.sortedIndices.length > 1 ? 'are' : 'is'} now in ${step.sortedIndices.length > 1 ? 'their' : 'its'} final sorted position. <br>
+                        <em>Why:</em> The algorithm has confirmed this is the correct final spot for this element. <br>
+                        <em>Current Array:</em> ${post}
+                    </div>`;
                 break;
             }
+
+            // ✨ NEW CASE for the final sorted array
+            case "sorted-final": {
+                // Mark all bars as sorted
+                document.querySelectorAll('.bar').forEach((bar, idx) => {
+                    bar.classList.add('sorted-permanent');
+                    permanentlySorted.add(idx);
+                });
+
+                description = `
+                    <div class="step-block final-step">
+                        <strong>🎉 Sorting Complete!</strong> <br>
+                        <em>Result:</em> The entire array has been successfully sorted. <br>
+                        <em>Final Sorted Array:</em> <b>${post}</b>
+                    </div>`;
+                break;
+            }
+
+
             default:
-                description = `No comparison (initialization/final state)`;
+                description = `
+                    <div class="step-block">
+                        <strong>Note:</strong> Initialization / no specific action. <br>
+                        <em>Array:</em> ${post}
+                    </div>`;
         }
 
-        li.textContent = `Step ${i + 1}: ${description}`;
+        li.innerHTML = description;
 
         if (i === currentStep - 1) {
             li.classList.add('current');
@@ -1773,6 +1904,7 @@ function updateStepList() {
     const container = document.getElementById('stepInfo');
     container.scrollTop = container.scrollHeight;
 }
+
 
 // Highlight Code Line
 function highlightCodeLine(lineId) {
