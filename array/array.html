@@ -10,6 +10,413 @@
     <title>Array Visualizer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
+
+        <style>
+        .definition1 {
+            margin-left: 40px;
+        }
+
+        .working1 {
+            margin-left: 40px;
+        }
+
+        .time-complexity1, .space-complexity1 {
+          margin-left: 40px;
+        }
+
+        body.light-mode .sort-desc {
+            background-color: #e2e3ff;
+            color: #212121;
+        }
+
+        /* .visualizer-layout {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1c1616;
+            gap: 30px;
+            margin: 60px;
+            border-radius: 20px;
+            padding: 20px 40px;
+        } */
+
+        /* body.light-mode .visualizer-layout {
+            background-color: #d0daff;
+        }
+
+        .left-panel {
+            flex: 8;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .right-panel {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        } */
+
+        /* .step-info {
+            background-color: #392d2f;
+            color: #f8f8f2;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            max-height: 320px;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            height: 320px;
+        }
+
+        body.light-mode .step-info {
+            background-color: #b4bfff;
+            color: #000;
+        }
+
+        .step-info li {
+            padding: 4px 6px;
+            margin-bottom: 3px;
+            border-radius: 6px;
+        } */
+
+        /* .step-info li .current {
+            background-color: #ff8b8b;
+            font-weight: bold;
+            border-left: 4px solid #ff0000;
+        }
+
+        body.light-mode .step-info li .current {
+            background-color: #7291ff;
+            font-weight: bold;
+            border-left: 4px solid #0013c1;
+        }
+
+        .bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            overflow-x: auto;
+        } */
+        
+        /* New styling to align index numbers with bars */
+        .bars-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150px;
+            margin-top: 10px;
+            background-color: #413434;
+            padding: 10px;
+            border-radius: 8px;
+            overflow-x: auto;
+            width: 100%;
+            min-width: 575px;
+            justify-self: center;
+        }
+        
+        .bar-index-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            font-size: 0.9rem;
+            color: #aaa;
+            width: 100%;
+            min-width: max-content;
+        }
+
+        body.light-mode .bars-container {
+            background-color: #f4f6ff;
+        }
+
+        #codeBox {
+            background: #1e1e1e;
+            padding: 0.8em;
+            border-radius: 8px;
+            color: #f1f1f1;
+            overflow-x: auto;
+        }
+
+        .bar-index {
+            width: 60px; /* Match bar width */
+            text-align: center;
+            font-weight: bold;
+            color: #ccc;
+            margin: 0 5px; /* Match bar margin */
+        }
+
+        body.light-mode .bar-index {
+            color: #333;
+        }
+
+        .bar {
+            font-size: 16px;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid black;
+            background-color: #61dafb;
+            border-radius: 0;
+            margin: 0 5px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .bar.highlight {
+            background-color: #f9a825 !important;
+            transform: scale(1.1);
+            border-color: #f9a825;
+            border: 2px solid black;
+        }
+
+        .bar.remove {
+            background-color: #ff4d4d !important;
+            transform: scale(0.5);
+            opacity: 0;
+            border-color: #ff4d4d;
+            border: 2px solid black;
+        }
+
+        .bar.found {
+            background-color: #2ecc71 !important;
+            border-color: #2ecc71;
+            box-shadow: 0 0 10px #2ecc71;
+            border: 2px solid black;
+        }
+
+        .bar.sorted {
+            background-color: #2ecc71 !important;
+            border-color: #2ecc71;
+            transition: background-color 0.5s ease;
+            border: 2px solid black;
+        }
+
+        .input-section label {
+            color: white;
+        }
+
+        .input-section input {
+            padding: 10px;
+            width: 20%;
+            max-width: 300px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+        }
+
+        .input-section button {
+            padding: 10px 15px;
+            background-color: #f06262;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .input-section button:hover {
+            background-color: #f9a825;
+            color: black;
+        }
+
+        body.light-mode .input-section button {
+            background-color: #4c70ff;
+        }
+
+        body.light-mode .input-section button:hover {
+            background-color: #1f46e2;
+            color: #ffffff;
+        }
+
+        .control-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .control-panel h3,
+        label {
+            color: white;
+        }
+
+        .control-panel input {
+            padding-left: 8px;
+            height: 30px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .control-panel button,
+        .control-panel input[type="range"] {
+            padding: 8px 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .control-panel button {
+            background-color: #f06262;
+            color: white;
+            cursor: pointer;
+        }
+
+        .control-panel button:hover {
+            background-color: #f9a825;
+            color: black;
+        }
+
+        @media (max-width: 1220px) {
+            .visualizer-layout {
+                flex-direction: column;
+                align-items: stretch;
+                margin: 60px;
+                padding: 20px;
+                gap: 20px;
+            }
+
+            .left-panel,
+            .right-panel {
+                flex: none;
+                width: 100%;
+            }
+
+            .step-info {
+                height: 320px;
+                max-height: 320px;
+                flex-shrink: 0;
+            }
+        }
+
+
+        @media screen and (max-width: 768px) {
+            .sort-selector {
+                margin: 0 20px 40px 20px;
+            }
+
+            .sort-desc h2 {
+                font-size: 0.9rem;
+            }
+
+            .sort-desc p {
+                font-size: 0.8rem;
+            }
+
+            .visualizer-layout {
+                margin: 15px;
+                padding: 15px;
+                gap: 15px;
+            }
+
+            .left-panel,
+            .right-panel {
+                width: 100%;
+            }
+
+            .step-info {
+                height: 320px;
+                max-height: 320px;
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+
+            .input-section label {
+                font-size: 0.9rem;
+                font-weight: 700;
+            }
+
+            .input-section input {
+                margin-bottom: 10px;
+                width: 40%;
+            }
+
+            .sort-desc {
+                font-size: 0.95rem;
+                padding: 20px;
+                margin: 20px;
+                margin-bottom: 50px;
+            }
+
+            .bar-wrapper {
+                width: 100%;
+                overflow-x: auto;
+            }
+
+            .bars-container {
+                justify-content: flex-start;
+                min-width: max-content;
+                padding: 10px;
+            }
+
+            .bar-index-container {
+                justify-content: flex-start;
+                min-width: max-content;
+                padding: 15px;
+                gap: 10px;
+            }
+
+            .bar {
+                width: 40px;
+                height: 40px;
+                flex-shrink: 0;
+                font-size: 12px;
+            }
+            
+            .bar-index {
+                width: 40px;
+                flex-shrink: 0;
+            }
+
+            .code-display {
+                padding: 15px;
+                margin: 20px;
+            }
+
+            .code-display p {
+                font-size: 0.8rem;
+            }
+
+            .sort-lan-selector {
+                margin: 40px 20px;
+            }
+
+            #codeBox {
+                font-size: 0.6rem;
+            }
+        }
+
+        .array-operations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .array-operations input {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            min-width: 100px;
+        }
+
+        .array-operations button {
+            background-color: #4ecdc4;
+            border: none;
+            color: #000000;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>

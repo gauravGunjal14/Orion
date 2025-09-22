@@ -24,7 +24,7 @@ body.light-mode {
   justify-content: space-between;
   height: 60px;
   align-items: center;
-  background-color: rgba(37, 37, 37, 0.974);
+  background-color: #252525f8;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -89,7 +89,7 @@ body.light-mode .nav-links.show {
 }
 
 body.light-mode .links {
-  color: #0f054b;
+  color: rgb(16, 5, 77);
 }
 
 .links:hover, body.light-mode .links:hover {
@@ -139,7 +139,7 @@ body.light-mode .hero {
   font-size: 4.2rem;
   font-weight: 500;
   margin-bottom: 10px;
-  background: linear-gradient(to right, #ffffff, #d5d5d5, #fba7a7);
+  background: linear-gradient(to right, #ffffff, #ffeded, #fdc8c8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: 0.3s ease;
@@ -199,14 +199,6 @@ body.light-mode .hero p {
   background-position: right center;
   color: #fff;
   transform: translateY(-2px);
-}
-
-body.light-mode .explore-btn {
-  background-color: #0f054b;
-}
-
-body.light-mode .explore-btn:hover {
-  background-color: #150860;
 }
 
 .categories {
