@@ -1,4 +1,4 @@
-# 🔍 Orion
+# 🔍 Orion [![Netlify Status](https://api.netlify.com/api/v1/badges/dedd5988-ffef-4ab4-be4c-b5959a9f54db/deploy-status)](https://app.netlify.com/projects/orion14/deploys)
 
 Welcome to **Orion** — a modern web-based platform to **visualize Data Structures and Algorithms** through interactive and intuitive animations.
 
