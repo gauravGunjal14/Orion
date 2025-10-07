@@ -7,24 +7,28 @@
     <meta name="description" content="Visualize data structures and algorithms with animations and interactive tools.">
     <meta name="keywords" content="DSA, Visualizer, Algorithms, Data Structures, Interactive, Sorting, Sort, Gaurav Gunjal">
     <title>Orion</title>
-    <link rel="icon" type="image/png" href="../icons/logo.png">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="/public/icons/logo.png">
+    <link rel="stylesheet" href="/src/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/public/manifest.json" />
+    <meta name="theme-color" content="#00ffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 </head>
 
 <body>
   <!-- Header -->
   <header class="navbar">
-    <div class="logo"><a href="../index.html" class="links">ORION</a></div>
+    <div class="logo"><a href="/index.html" class="links">ORION</a></div>
     <nav>
       <div class="nav-links">
-        <a href="../index.html" class="links">Home</a>
+        <a href="/index.html" class="links">Home</a>
         <a href="#sort-page" class="links">Sort</a>
         <a href="#visualizer" class="links">Visualizer</a>
         <a href="#code" class="links">Code</a>
       </div>
       <div class="theme">
-        <button id="toggelBtn" class="light-mode theme"><img id="themeIcon" src="../icons/light-mode.png"
+        <button id="toggelBtn" class="light-mode theme"><img id="themeIcon" src="/public/icons/light-mode.png"
             alt="Switch into light mode"></button>
       </div>
   
@@ -127,7 +131,7 @@
 
     <!-- code display -->
     <section class="code-display">
-      <button class="copyBtn" id="copy-btn"><img src="../icons/dark-copy.png" alt=""></button>
+      <button class="copyBtn" id="copy-btn"><img src="/public/icons/dark-copy.png" alt=""></button>
       
       <div id="notification-container"></div>
 
@@ -142,7 +146,7 @@
             <p>&copy; 2025 Orion. All rights reserved.</p>
         </div>
     </footer>
-  <script src="./sortLogic.js"></script>
+  <script src="/src/sort/sortLogic.js"></script>
 </body>
 
 </html>

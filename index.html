@@ -1,131 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Visualize data structures and algorithms with animations and interactive tools.">
-    <meta name="keywords" content="DSA, Visualizer, Algorithms, Data Structures, Interactive, Sorting, Sort, Gaurav Gunjal">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Visualize data structures and algorithms with animations and interactive tools."/>
+    <meta name="keywords" content="DSA, Visualizer, Algorithms, Data Structures, Interactive, Sorting, Sort, Gaurav Gunjal"/>
     <title>Orion</title>
-    <link rel="icon" type="image/png" href="./icons/logo.png">
-    <link rel="stylesheet" href="./style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-</head>
+    <link rel="icon" type="image/png" href="/public/icons/logo.png" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+    <link rel="manifest" href="/public/manifest.json" />
+    <meta name="theme-color" content="#00ffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  </head>
 
-<body>
+  <body>
     <!-- Header -->
     <header class="navbar">
-        <div class="logo"><a href="../index.html" class="links">ORION</a></div>
-        <nav>
-            <div class="nav-links">
-                <a href="#home" class="links">Home</a>
-                <a href="#category_scroll" class="links">Algorithms</a>
-                <a href="#contact" class="links">Contact</a>
-            </div>
-            <div class="theme">
-                <button id="toggelBtn" class="light-mode theme"><img id="themeIcon" src="./icons/light-mode.png"
-                        alt="Switch into light mode"></button>
-                <!-- <button class="dark-mode theme"><img src="./icons/dark-mode.png" alt="Switch into dark-mode"></button> -->
-            </div>
+      <div class="logo"><a href="/index.html" class="links">ORION</a></div>
+      <nav>
+        <div class="nav-links">
+          <a href="#home" class="links">Home</a>
+          <a href="#category_scroll" class="links">Algorithms</a>
+          <a href="#contact" class="links">Contact</a>
+        </div>
+        <div class="theme">
+          <button id="toggelBtn" class="light-mode theme">
+            <img id="themeIcon" src="/public/icons/light-mode.png" alt="Switch into light mode"/>
+          </button>
+        </div>
 
-            <div class="menuIcon" id="menuIcon">&#9776;</div>
-            <div class="closeIcon" id="closeIcon" style="display: none;">&times;</div>
-        </nav>
+        <div class="menuIcon" id="menuIcon">&#9776;</div>
+        <div class="closeIcon" id="closeIcon" style="display: none">
+          &times;
+        </div>
+      </nav>
     </header>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Visualize Algorithms</h1>
-            <h2>Understand Faster, Learn Better</h2>
-            <p>Explore algorithms like never before. Learn concepts<br>step by step with real-time visuals.</p>
-            <a href="#algorithms" class="explore-btn">Explore Now</a>
-        </div>
+      <div class="hero-content">
+        <h1>Visualize Algorithms</h1>
+        <h2>Understand Faster, Learn Better</h2>
+        <p>
+          Explore algorithms like never before. Learn concepts<br />step by step
+          with real-time visuals.
+        </p>
+        <a href="#algorithms" class="explore-btn">Explore Now</a>
+      </div>
     </section>
 
     <!-- Categories Section -->
     <section id="algorithms" class="categories">
-        <h2 id="category_scroll">Choose a algorithm</h2>
-        <div class="category-grid">
-
-            <div class="category-card">
-                <img src="images/array.png" alt="Array Operations" />
-                <h3>Array</h3>
-                <p>Sliding Window, Prefix Sum...</p>
-                <a href="./array/array.html">Explore</a>
-            </div>
-
-            <div class="category-card">
-                <img src="images/sort.gif" alt="Sorting Algorithms" />
-                <h3>Sorting</h3>
-                <p>Bubble, Merge, Quick...</p>
-                <a href="./sort/sort.html">Explore</a>
-            </div>
-
-            <div class="category-card">
-                <img src="images/list.gif" alt="Linked List" />
-                <h3>Linked List</h3>
-                <p>Stack, Queue, Doubly...</p>
-                <a href="list.html">Explore</a>
-            </div>
-
-            <div class="category-card">
-                <img src="images/hashtable.gif" alt="Hash Table" />
-                <h3>Hash Table</h3>
-                <p>Open addresing, Linear...</p>
-                <a href="hashTable.html">Explore</a>
-            </div>
-
-            <div class="category-card">
-                <img src="images/bst.gif" alt="Binary Search Tree" />
-                <h3>Binary Search Tree</h3>
-                <p>BST, AVL...</p>
-                <a href="bst.html">Explore</a>
-            </div>
-
-            <div class="category-card">
-                <img src="images/dfsbfs.gif" alt="Graph Traversal" />
-                <h3>Graph Traversal</h3>
-                <p>BFS, DFS,...</p>
-                <a href="dfsbfs.html">Explore</a>
-            </div>
-
-            <div class="category-card">
-                <img src="images/graphds.gif" alt="Graph Structure" />
-                <h3>Graph Structure</h3>
-                <p>U/U, U/W, D/U...</p>
-                <a href="graphds.html">Explore</a>
-            </div>
-
-            <div class="category-card">
-                <img src="images/mst.gif" alt="Min Spanning Tree" />
-                <h3>Min Spanning Tree</h3>
-                <p>Mst, Prism, Kruskal,...</p>
-                <a href="mst.html">Explore</a>
-            </div>
+      <h2 id="category_scroll">Choose a algorithm</h2>
+      <div class="category-grid">
+        <div class="category-card">
+          <img src="/public/icons/ds/array.png" alt="Array Operations" />
+          <h3>Array</h3>
+          <p>Sliding Window, Prefix Sum...</p>
+          <a href="/src/array/array.html">Explore</a>
         </div>
+
+        <div class="category-card">
+          <img src="/public/icons/ds/sort.gif" alt="Sorting Algorithms" />
+          <h3>Sorting</h3>
+          <p>Bubble, Merge, Quick...</p>
+          <a href="/src/sort/sort.html">Explore</a>
+        </div>
+
+        <div class="category-card">
+          <img src="/public/icons/ds/list.gif" alt="Linked List" />
+          <h3>Linked List</h3>
+          <p>Stack, Queue, Doubly...</p>
+          <a href="">Explore</a>
+        </div>
+
+        <div class="category-card">
+          <img src="/public/icons/ds/hashtable.gif" alt="Hash Table" />
+          <h3>Hash Table</h3>
+          <p>Open addresing, Linear...</p>
+          <a href="">Explore</a>
+        </div>
+
+        <div class="category-card">
+          <img src="/public/icons/ds/bst.gif" alt="Binary Search Tree" />
+          <h3>Binary Search Tree</h3>
+          <p>BST, AVL...</p>
+          <a href="">Explore</a>
+        </div>
+
+        <div class="category-card">
+          <img src="/public/icons/ds/dfsbfs.gif" alt="Graph Traversal" />
+          <h3>Graph Traversal</h3>
+          <p>BFS, DFS,...</p>
+          <a href="">Explore</a>
+        </div>
+
+        <div class="category-card">
+          <img src="/public/icons/ds/graphds.gif" alt="Graph Structure" />
+          <h3>Graph Structure</h3>
+          <p>U/U, U/W, D/U...</p>
+          <a href="">Explore</a>
+        </div>
+
+        <div class="category-card">
+          <img src="/public/icons/ds/mst.gif" alt="Min Spanning Tree" />
+          <h3>Min Spanning Tree</h3>
+          <p>Mst, Prism, Kruskal,...</p>
+          <a href="">Explore</a>
+        </div>
+      </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
-        <h2>Contact Us</h2>
-        <p>Have questions or suggestions? Reach out to us!</p>
-        <form action="#" method="post">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
+      <h2>Contact Us</h2>
+      <p>Have questions or suggestions? Reach out to us!</p>
+      <form action="#" method="post">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea
+          name="message"
+          rows="5"
+          placeholder="Your Message"
+          required
+        ></textarea>
+        <button type="submit">Send Message</button>
+      </form>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2025 Orion. All rights reserved.</p>
-        </div>
+      <div class="footer-content">
+        <p>&copy; 2025 Orion. All rights reserved.</p>
+      </div>
     </footer>
-    <script src="./home.js"></script>
-
-</body>
-
+    <script src="/src/home.js"></script>
+  </body>
 </html>

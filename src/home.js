@@ -5,18 +5,18 @@ const body = document.querySelector("body");
 
 if (localStorage.getItem("theme") === "light") {
     body.classList.add("light-mode");
-    themeIcon.src = "./icons/dark-mode.png";
+    themeIcon.src = "/public/icons/dark-mode.png";
 }
 
 toggelBtn.addEventListener("click", () => {
     body.classList.toggle("light-mode");
 
     if (body.classList.contains("light-mode")) {
-        themeIcon.src = "./icons/dark-mode.png";
+        themeIcon.src = "/public/icons/dark-mode.png";
         localStorage.setItem("theme", "light");
     }
     else {
-        themeIcon.src = "./icons/light-mode.png";
+        themeIcon.src = "/public/icons/light-mode.png";
         localStorage.setItem("theme", "dark");
     }
 });
@@ -49,17 +49,11 @@ allLinks.forEach(link => {
     });
 });
 
-// window.addEventListener("resize", () => {
-//     if (window.innerWidth > 768) {
-//         // Desktop screen: show nav and hide icons
-//         navLinks.classList.remove("show"); // optional: desktop pe 'show' class ki zarurat nahi
-//         navLinks.style.display = "flex";   // or whatever display you use in CSS for desktop
-//         menuIcon.style.display = "none";
-//         closeIcon.style.display = "none";
-//     } else {
-//         // Mobile screen: hide nav by default
-//         navLinks.style.display = "none";
-//         menuIcon.style.display = "block";
-//         closeIcon.style.display = "none";
-//     }
-// });
+// Service Worker code for installation
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js")
+      .then((reg) => console.log("✅ Service Worker registered:", reg.scope))
+      .catch((err) => console.log("❌ Service Worker registration failed:", err));
+  });
+}

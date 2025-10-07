@@ -7,9 +7,14 @@
     <meta name="description" content="Visualize data structures and algorithms with animations and interactive tools.">
     <meta name="keywords" content="DSA, Visualizer, Algorithms, Data Structures, Interactive, Array, Array Operations, Gaurav Gunjal">
     <title>Orion</title>
-    <link rel="icon" type="image/png" href="../icons/logo.png">
+    <link rel="icon" type="image/png" href="/public/icons/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/src/style.css">
+
+    <link rel="manifest" href="/public/manifest.json" />
+    <meta name="theme-color" content="#00ffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 
         <style>
         .definition1 {
@@ -421,16 +426,16 @@
 
 <body>
     <header class="navbar">
-        <div class="logo"><a href="../index.html" class="links">ORION</a></div>
+        <div class="logo"><a href="/index.html" class="links">ORION</a></div>
         <nav>
             <div class="nav-links">
-                <a href="../index.html" class="links">Home</a>
+                <a href="/index.html" class="links">Home</a>
                 <a href="#" class="links">Array</a>
                 <a href="#visualizer" class="links">Visualizer</a>
                 <a href="#code" class="links">Code</a>
             </div>
             <div class="theme">
-                <button id="toggelBtn" class="light-mode theme"><img id="themeIcon" src="../icons/light-mode.png"
+                <button id="toggelBtn" class="light-mode theme"><img id="themeIcon" src="/public/icons/light-mode.png"
                         alt="Switch into light mode"></button>
             </div>
 
@@ -536,7 +541,7 @@
 
     <!-- code display -->
     <section class="code-display">
-      <button id="copy-btn"><img src="../icons/dark-copy.png" alt=""></button>
+      <button id="copy-btn"><img src="/public/icons/dark-copy.png" alt=""></button>
       <!-- display code of selected language -->
       <p class="code-lang"></p>
     </section>
@@ -548,7 +553,8 @@
     </footer>
     </main>
 
-    <script src="./arrayLogic.js"></script>
+    <script src="/src/array/arrayLogic.js"></script>
+    <script src="/src/home.js"></script>
 </body>
 
 </html>
