@@ -64,7 +64,7 @@ The primary goals of **Orion** are:
 
 ## 📸 Screenshots
 
-![Orion Screenshot](./public/Home.png)
+![Orion Screenshot](./public/home.png)
 ![sorting Screenshot](./public/sort.png)
 
 ---
