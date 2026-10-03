@@ -136,10 +136,9 @@ An IT engineering student passionate about **frontend development, React, and bu
 This project reflects my interest in combining **DSA + UI + real-world usability**.
 
 🔗 Connect with me:
-* Portfolio: [https://gauravgunjal.netlify.app/](https://gauravgunjal.netlify.app/)
+* Portfolio: [https://gauravgunjal.netlify.app/](https://gaurav-gunjal-portfolio.vercel.app/)
 * GitHub: [https://github.com/gauravGunjal14](https://github.com/gauravGunjal14)
 * LinkedIn: [https://www.linkedin.com/in/gaurav-gunjal14/](https://www.linkedin.com/in/gaurav-gunjal14/)
-* X (Twitter): [https://x.com/gaurav_gunjal14](https://x.com/gaurav_gunjal14)
 
 ---
 
